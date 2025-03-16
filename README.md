@@ -54,4 +54,69 @@ def draw_shielding():
     plt.tight_layout()  # Ensure no overlapping elements
     plt.show()
 
-draw_shielding()
+draw_shielding()   
+# CODE FOR FIRST DIAGRAM ENDS HERE
+
+
+
+ #  CODE FOR SECOND DIAGRAM STARTS HERE
+ import matplotlib.pyplot as plt
+import numpy as np
+
+# Gamma-ray attenuation in lead
+x_lead = np.linspace(0, 10, 100)  # Thickness of lead (cm) from 0 to 10 cm
+mu_lead = 0.5  # Linear attenuation coefficient for lead (cm^-1)
+I_gamma_lead = 100 * np.exp(-mu_lead * x_lead)  # Transmitted gamma intensity (%)
+
+# Neutron attenuation in HDPE
+x_hdpe = np.linspace(0, 20, 100)  # Thickness of HDPE (cm) from 0 to 20 cm
+sigma_hdpe = 0.1  # Removal cross-section for HDPE (cm^-1)
+I_neutron_hdpe = 100 * np.exp(-sigma_hdpe * x_hdpe)  # Transmitted neutron intensity (%)
+
+# Neutron attenuation in borated polyethylene
+x_borated = np.linspace(0, 10, 100)  # Thickness of borated polyethylene (cm) from 0 to 10 cm
+sigma_borated = 0.3  # Assumed removal cross-section for borated polyethylene (cm^-1)
+I_neutron_borated = 100 * np.exp(-sigma_borated * x_borated)  # Transmitted neutron intensity (%)
+
+# Gamma-ray attenuation in stainless steel
+x_steel = np.linspace(0, 5, 100)  # Thickness of stainless steel (cm) from 0 to 5 cm
+mu_steel = 0.2  # Assumed linear attenuation coefficient for stainless steel (cm^-1)
+I_gamma_steel = 100 * np.exp(-mu_steel * x_steel)  # Transmitted gamma intensity (%)
+
+# Plotting the graph
+plt.figure(figsize=(12, 8))
+
+# Gamma-ray attenuation curves
+plt.plot(x_lead, I_gamma_lead, label='Gamma-Ray Attenuation in Lead', color='blue', linewidth=2)
+plt.plot(x_steel, I_gamma_steel, label='Gamma-Ray Attenuation in Stainless Steel', color='green', linewidth=2)
+
+# Neutron attenuation curves
+plt.plot(x_hdpe, I_neutron_hdpe, label='Neutron Attenuation in HDPE', color='red', linewidth=2)
+plt.plot(x_borated, I_neutron_borated, label='Neutron Attenuation in Borated Polyethylene', color='purple', linewidth=2)
+
+# Highlighting specific points from the report
+# Gamma-ray attenuation at 7 cm of lead
+plt.scatter(7, 100 * np.exp(-0.5 * 7), color='blue', zorder=5)
+plt.text(7, 100 * np.exp(-0.5 * 7) + 2, f'7 cm: {100 * np.exp(-0.5 * 7):.1f}%', fontsize=10, color='blue')
+
+# Neutron attenuation at 15 cm of HDPE
+plt.scatter(15, 100 * np.exp(-0.1 * 15), color='red', zorder=5)
+plt.text(15, 100 * np.exp(-0.1 * 15) + 2, f'15 cm: {100 * np.exp(-0.1 * 15):.1f}%', fontsize=10, color='red')
+
+# Neutron attenuation at 5 cm of borated polyethylene
+plt.scatter(5, 100 * np.exp(-0.3 * 5), color='purple', zorder=5)
+plt.text(5, 100 * np.exp(-0.3 * 5) + 2, f'5 cm: {100 * np.exp(-0.3 * 5):.1f}%', fontsize=10, color='purple')
+
+# Gamma-ray attenuation at 2 cm of stainless steel
+plt.scatter(2, 100 * np.exp(-0.2 * 2), color='green', zorder=5)
+plt.text(2, 100 * np.exp(-0.2 * 2) + 2, f'2 cm: {100 * np.exp(-0.2 * 2):.1f}%', fontsize=10, color='green')
+
+# Adding labels, title, and grid
+plt.xlabel('Thickness (cm)', fontsize=12)
+plt.ylabel('Transmitted Intensity (%)', fontsize=12)
+plt.title('Radiation Attenuation in Shielding Materials', fontsize=14)
+plt.legend(fontsize=12)
+plt.grid(True, linestyle='--', alpha=0.6)
+
+# Display the graph
+plt.show()
